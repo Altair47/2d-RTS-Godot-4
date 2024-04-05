@@ -1,9 +1,8 @@
 [gd_scene load_steps=9 format=3 uid="uid://bjxcpmo2kqej"]
 
 [ext_resource type="Texture2D" uid="uid://vl71jbu1rcfp" path="res://Sprites/tilemap.png" id="1_ipyvt"]
-[ext_resource type="Texture2D" uid="uid://bh4qk0pf3impg" path="res://Sprites/tile_0084.png" id="2_6reso"]
-[ext_resource type="Texture2D" uid="uid://csdq3jscenvcx" path="res://Sprites/tile_0086.png" id="3_h0biu"]
-[ext_resource type="Texture2D" uid="uid://crr3033bg2ax8" path="res://Sprites/tile_0087.png" id="4_g1iv5"]
+[ext_resource type="Script" path="res://Scenes/CharacterBody2D.gd" id="2_u50wp"]
+[ext_resource type="Texture2D" uid="uid://c0jp7s0aqpmtl" path="res://Sprites/tile_0096.png" id="3_y4ltg"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_loi5p"]
 texture = ExtResource("1_ipyvt")
@@ -156,6 +155,9 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Arr
 outlines = Array[PackedVector2Array]([PackedVector2Array(7, -7, 24, -7, 24, 40, 6, 40, 7, 89, 169, 90, 168, -73, 7, -73)])
 source_geometry_group_name = &"navigation_polygon_source_group"
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b1afo"]
+size = Vector2(16, 15)
+
 [node name="Main" type="Node2D"]
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -173,14 +175,14 @@ navigation_polygon = SubResource("NavigationPolygon_u3ot5")
 position = Vector2(47, 1)
 zoom = Vector2(3.34, 3.34)
 
-[node name="Tile0084" type="Sprite2D" parent="."]
-position = Vector2(-37, -17)
-texture = ExtResource("2_6reso")
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+script = ExtResource("2_u50wp")
 
-[node name="Tile0086" type="Sprite2D" parent="."]
-position = Vector2(-34, 31)
-texture = ExtResource("3_h0biu")
+[node name="pSprite" type="Sprite2D" parent="CharacterBody2D"]
+texture = ExtResource("3_y4ltg")
 
-[node name="Tile0087" type="Sprite2D" parent="."]
-position = Vector2(108, 44)
-texture = ExtResource("4_g1iv5")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_b1afo")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="CharacterBody2D"]
